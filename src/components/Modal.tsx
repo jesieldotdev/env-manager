@@ -3,18 +3,20 @@ import React, { useState } from 'react';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (name: string, value: string) => void;
+  onAdd: (name: string, value: string, description: string) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onAdd }) => {
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
 
   const handleSubmit = () => {
-    if (name && value) {
-      onAdd(name, value);
+    if (name && value && description) {
+      onAdd(name, value, description);
       setName('');
       setValue('');
+      setDescription('');
       onClose();
     }
   };
@@ -31,6 +33,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onAdd }) => {
           className="w-full p-2 border rounded mb-2 focus:outline-blue-500"
           value={name}
           onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Variable Description"
+          className="w-full p-2 border rounded mb-2 focus:outline-blue-500"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <input
           type="text"

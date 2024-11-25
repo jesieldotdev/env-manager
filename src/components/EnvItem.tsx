@@ -4,9 +4,10 @@ import { Copy } from 'lucide-react';
 interface EnvItemProps {
   name: string;
   value: string;
+  description: string
 }
 
-const EnvItem: React.FC<EnvItemProps> = ({ name, value }) => {
+const EnvItem: React.FC<EnvItemProps> = ({ name, value, description }) => {
   const handleCopy = () => {
     // Copia o valor para a área de transferência
     navigator.clipboard.writeText(value).then(() => {
@@ -17,8 +18,9 @@ const EnvItem: React.FC<EnvItemProps> = ({ name, value }) => {
   return (
     <div className="flex flex-row sm:flex-row justify-between items-start sm:items-center p-4">
       <div className="mb-2 sm:mb-0">
-        <h3 className="font-bold text-sm sm:text-base">{name}</h3>
+        <h3 className="font-bold text-sm sm:text-base">{name} <span className="text-gray-600">({description})</span></h3>
         <p className="text-xs sm:text-sm text-gray-600">{value}</p>
+        
       </div>
 
       <button

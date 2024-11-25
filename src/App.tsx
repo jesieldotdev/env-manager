@@ -19,8 +19,8 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const handleAddVariable = (name: string, value: string) => {
-    const newVariables = [...variables, { name, value }];
+  const handleAddVariable = (name: string, value: string, description: string) => {
+    const newVariables = [...variables, { name, value, description }];
     setVariables(newVariables);
     localStorage.setItem('envVariables', JSON.stringify(newVariables));  // Atualiza as variáveis no localStorage
   };
@@ -40,7 +40,9 @@ const App: React.FC = () => {
       <div className="bg-white shadow rounded divide-y">
         {variables.length > 0 ? (
           variables.map((variable, index) => (
-            <EnvItem key={index} name={variable.name} value={variable.value} />
+            <EnvItem key={index} 
+            description={variable.description}
+            name={variable.name} value={variable.value} />
           ))
         ) : (
           <p className="p-4 text-gray-500 text-center">No variables added yet.</p>
