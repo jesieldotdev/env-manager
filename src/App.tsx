@@ -5,6 +5,7 @@ import EnvItem from './components/EnvItem';
 interface EnvVariable {
   name: string;
   value: string;
+  description: string;
 }
 
 const App: React.FC = () => {
