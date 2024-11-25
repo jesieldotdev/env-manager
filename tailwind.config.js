@@ -2,7 +2,14 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Noto', 'sans-serif'], // Fonte padrão para texto
+        serif: ['Merriweather', 'serif'], // Fonte para títulos ou textos específicos
+        mono: ['Fira Code', 'monospace'], // Fonte monoespaçada
+        title: ['Fjalla One', 'sans-serif']
+      },
+    },
   },
   plugins: [],
 }

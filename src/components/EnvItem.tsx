@@ -20,13 +20,13 @@ const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemov
     return (
         <div className="flex flex-row sm:flex-row justify-between items-start sm:items-center p-4">
             <div className="mb-2 sm:mb-0 overflow-auto scrolb">
-                <h3 className="font-bold text-sm sm:text-base">
-                    {name}{" "}
+                <h3 className="font-light text-sm sm:text-base font-title text-[#282828]">
+                    {name}{" | "}
                     {description && (
-                        <span className="text-gray-600 font-thin">({description})</span>
+                        <span className="text-gray-600 font-thin font-sans italic">({description})</span>
                     )}
                 </h3>
-                <p className="text-xs sm:text-sm text-gray-600">{value}</p>
+                <p className="text-xs text-gray-600 font-mono">{value}</p>
             </div>
 
 <div className="flex">

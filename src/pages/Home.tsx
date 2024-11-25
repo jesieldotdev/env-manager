@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { startLoading, stopLoading } from '../store/loadingReducer';
+import SpeedDial from '../components/SpeedDial';
 
 interface EnvVariable {
     id: string;
@@ -118,6 +119,8 @@ const Home: React.FC = () => {
                 onClose={() => setModalOpen(false)}
                 onAdd={handleAddVariable}
             />
+
+            <SpeedDial/>
         </div>
     );
 };
