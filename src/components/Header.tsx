@@ -3,7 +3,7 @@ import { signOut } from '../config/auth';
 import { useDispatch } from 'react-redux';
 import { startLoading, stopLoading } from '../store/loadingReducer';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../public/logo.svg'
+import Logo from '../assets/logo.svg'
 
 interface HeaderProps{
     openAddEnvModal(): void

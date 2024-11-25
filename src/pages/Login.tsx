@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmail } from '../config/auth';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../public/logo.svg'
+import Logo from '../assets/logo.svg'
 
 const Login: React.FC = () => {
   const navigate = useNavigate()
