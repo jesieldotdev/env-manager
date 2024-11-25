@@ -1,13 +1,14 @@
 import { Copy, Trash } from "lucide-react";
 
 interface EnvItemProps {
+    id: string
     name: string;
     value: string;
     description: string;
-    handleRemoveVariable: (name:string)=>void
+    handleRemoveVariable: (id:string)=>void
 }
 
-const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemoveVariable }) => {
+const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemoveVariable, id }) => {
     const handleCopy = () => {
         const text = `${name}=${value}`
         // Copia o valor para a área de transferência
@@ -30,7 +31,7 @@ const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemov
 
 <div className="flex">
             <button
-                onClick={()=>handleRemoveVariable(name)}
+                onClick={()=>handleRemoveVariable(id)}
                 className="ml-2 mt-2 sm:mt-0 p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
                 title="Delete"
             >

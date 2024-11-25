@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './components/Modal';
 import EnvItem from './components/EnvItem';
+import { fetchVariables, addVariable, removeVariable } from './config/supabase';
 
 interface EnvVariable {
+  id: string;
   name: string;
   value: string;
   description: string;
@@ -12,25 +14,38 @@ const App: React.FC = () => {
   const [variables, setVariables] = useState<EnvVariable[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Carrega as variáveis do localStorage quando o componente é montado
   useEffect(() => {
-    const savedVariables = localStorage.getItem('envVariables');
-    if (savedVariables) {
-      setVariables(JSON.parse(savedVariables));  // Converte os dados do localStorage de volta para um array
-    }
+    const loadVariables = async () => {
+      try {
+        const data = await fetchVariables();
+        setVariables(data || []);
+      } catch (error) {
+        console.error('Error fetching variables:', error);
+      }
+    };
+
+    loadVariables();
   }, []);
 
-  const handleAddVariable = (name: string, value: string, description: string) => {
-    const newVariables = [...variables, { name, value, description }];
-    setVariables(newVariables);
-    localStorage.setItem('envVariables', JSON.stringify(newVariables));  // Atualiza as variáveis no localStorage
+  const handleAddVariable = async (name: string, value: string, description: string) => {
+    try {
+      await addVariable(name, value, description);
+      const updatedVariables = await fetchVariables();
+      setVariables(updatedVariables || []);
+      setModalOpen(false);
+    } catch (error) {
+      console.error('Error adding variable:', error);
+    }
   };
-  
- const handleRemoveVariable = (name: string) => {
-    // Remove a variável com o nome correspondente
-    const newVariables = variables.filter(variable => variable.name !== name);
-    setVariables(newVariables);
-    localStorage.setItem('envVariables', JSON.stringify(newVariables));  // Atualiza o localStorage
+
+  const handleRemoveVariable = async (id: string) => {
+    try {
+      await removeVariable(id);
+      const updatedVariables = await fetchVariables();
+      setVariables(updatedVariables || []);
+    } catch (error) {
+      console.error('Error removing variable:', error);
+    }
   };
 
   return (
@@ -47,11 +62,15 @@ const App: React.FC = () => {
 
       <div className="bg-white shadow rounded divide-y">
         {variables.length > 0 ? (
-          variables.map((variable, index) => (
-            <EnvItem key={index} 
-            handleRemoveVariable={handleRemoveVariable}
-            description={variable.description}
-            name={variable.name} value={variable.value} />
+          variables.map((variable) => (
+            <EnvItem
+              key={variable.id}
+              id={variable.id}
+              name={variable.name}
+              value={variable.value}
+              description={variable.description}
+              handleRemoveVariable={handleRemoveVariable}
+            />
           ))
         ) : (
           <p className="p-4 text-gray-500 text-center">No variables added yet.</p>
@@ -63,16 +82,6 @@ const App: React.FC = () => {
         onClose={() => setModalOpen(false)}
         onAdd={handleAddVariable}
       />
-
-      <button
-        onClick={() => {
-          localStorage.removeItem('envVariables');
-          setVariables([]);
-        }}
-        className="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 mt-4"
-      >
-        Clear All Variables
-      </button>
     </div>
   );
 };
