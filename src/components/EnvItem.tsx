@@ -9,8 +9,9 @@ interface EnvItemProps {
 
 const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemoveVariable }) => {
     const handleCopy = () => {
+        const text = `${name}=${value}`
         // Copia o valor para a área de transferência
-        navigator.clipboard.writeText(value).then(() => {
+        navigator.clipboard.writeText(text).then(() => {
             alert("Variable value copied!");
         });
     };
