@@ -21,7 +21,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 font-title">
       <div className="w-full max-w-sm sm:max-w-md space-y-8 bg-[#f7f7f7] p-6 sm:p-8 rounded shadow-lg">
         <img src={Logo} />
       

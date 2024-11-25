@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Noto', 'sans-serif'], // Fonte padrão para texto
+        sans: ['M Plus 1', 'sans-serif'], // Fonte padrão para texto
         serif: ['Merriweather', 'serif'], // Fonte para títulos ou textos específicos
         mono: ['Fira Code', 'monospace'], // Fonte monoespaçada
         title: ['Fjalla One', 'sans-serif']

@@ -1,22 +1,47 @@
 import { Plus } from 'lucide-react';
-import React, { useState } from 'react';
+import  { useState } from 'react';
+import { startLoading, stopLoading } from '../store/loadingReducer';
+import { signOut } from '../config/auth';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 interface SpeedDialOption {
   name: string;
   action: () => void;
 }
 
-const SpeedDial: React.FC = () => {
+interface SpeedDialProps{
+  openAddEnvModal: ()=>void
+
+}
+
+const SpeedDial = ({openAddEnvModal}:SpeedDialProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  
+  async function loggout() {
+    dispatch(startLoading());
+    try {
+        await signOut();
+        navigate('/login');
+    } catch (error) {
+        console.error(error);
+    }
+    dispatch(stopLoading());
+}
+
 
   const options: SpeedDialOption[] = [
-    { name: 'Add User', action: () => console.log('Add User clicked') },
-    { name: 'Edit Settings', action: () => console.log('Edit Settings clicked') },
-    { name: 'Logout', action: () => console.log('Logout clicked') },
+    { name: 'Add Variable', action: () => openAddEnvModal() },
+    // { name: 'Edit Settings', action: () => console.log('Edit Settings clicked') },
+    { name: 'Logout', action: () => loggout() },
   ];
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
   return (
-    <div className="fixed bottom-8 right-8">
+    <div className="fixed bottom-8 right-8 font-title">
       {/* Main Button */}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
@@ -35,7 +60,7 @@ const SpeedDial: React.FC = () => {
                 option.action();
                 setIsOpen(false);
               }}
-              className="bg-white text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-100 transition"
+              className="bg-white text-gray-800 px-4 py-2 rounded shadow hover:bg-gray-100 transition w-28"
             >
               {option.name}
             </button>

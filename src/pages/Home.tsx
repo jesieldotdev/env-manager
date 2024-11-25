@@ -120,7 +120,7 @@ const Home: React.FC = () => {
                 onAdd={handleAddVariable}
             />
 
-            <SpeedDial/>
+            <SpeedDial openAddEnvModal={openAddEnvModal}/>
         </div>
     );
 };
