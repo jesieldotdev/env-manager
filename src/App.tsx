@@ -25,6 +25,13 @@ const App: React.FC = () => {
     setVariables(newVariables);
     localStorage.setItem('envVariables', JSON.stringify(newVariables));  // Atualiza as variáveis no localStorage
   };
+  
+ const handleRemoveVariable = (name: string) => {
+    // Remove a variável com o nome correspondente
+    const newVariables = variables.filter(variable => variable.name !== name);
+    setVariables(newVariables);
+    localStorage.setItem('envVariables', JSON.stringify(newVariables));  // Atualiza o localStorage
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
@@ -42,6 +49,7 @@ const App: React.FC = () => {
         {variables.length > 0 ? (
           variables.map((variable, index) => (
             <EnvItem key={index} 
+            handleRemoveVariable={handleRemoveVariable}
             description={variable.description}
             name={variable.name} value={variable.value} />
           ))

@@ -12,7 +12,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, onAdd }) => {
   const [value, setValue] = useState('');
 
   const handleSubmit = () => {
-    if (name && value && description) {
+    if (name && value) {
       onAdd(name, value, description);
       setName('');
       setValue('');
