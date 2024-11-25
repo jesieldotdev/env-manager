@@ -1,15 +1,29 @@
 import { useState } from 'react';
 import { signOut } from '../config/auth';
+import { useDispatch } from 'react-redux';
+import { startLoading, stopLoading } from '../store/loadingReducer';
+import { useNavigate } from 'react-router-dom';
+import Logo from '../../public/logo.svg'
 
 interface HeaderProps{
     openAddEnvModal(): void
 }
 
 const Header = ({openAddEnvModal}: HeaderProps) => {
+    const navigate = useNavigate()
     const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const dispatch = useDispatch();
 
     async function loggout(){
-       await signOut()
+        dispatch(startLoading());
+        try {
+            await signOut()
+            navigate('/login')
+        } catch (error) {
+            
+        }
+        dispatch(stopLoading());
+       
     }
 
     const options  = [
@@ -24,8 +38,9 @@ const Header = ({openAddEnvModal}: HeaderProps) => {
     ];
 
     return (
-        <div className="flex justify-between items-center mb-6 bg-gray-50 p-4 rounded shadow-md">
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Environment Variables</h1>
+        <div className="flex justify-between items-center mb-6 bg-[#f7f7f7] pr-4 rounded shadow-md">
+            <img src={Logo} className='h-32' />
+            {/* <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Environment Variables</h1> */}
             <div className="flex items-center gap-4">
                 {/* Dropdown Menu (Mobile) */}
                 <div className="relative md:hidden">

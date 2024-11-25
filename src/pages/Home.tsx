@@ -24,6 +24,8 @@ const Home: React.FC = () => {
     const [variables, setVariables] = useState<EnvVariable[]>([]);
     const [isModalOpen, setModalOpen] = useState(false);
 
+    
+
     function openAddEnvModal() {
         setModalOpen(true)
     }

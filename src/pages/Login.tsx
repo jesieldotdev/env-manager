@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmail } from '../config/auth';
 import { useNavigate } from 'react-router-dom';
+import Logo from '../../public/logo.svg'
 
 const Login: React.FC = () => {
   const navigate = useNavigate()
@@ -21,11 +22,10 @@ const Login: React.FC = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-sm sm:max-w-md space-y-8 bg-white p-6 sm:p-8 rounded shadow-lg">
-        <h2 className="text-center text-2xl sm:text-3xl font-bold text-gray-900">
-          Login
-        </h2>
-        <form onSubmit={handleSubmit} className="mt-4 space-y-6">
+      <div className="w-full max-w-sm sm:max-w-md space-y-8 bg-[#f7f7f7] p-6 sm:p-8 rounded shadow-lg">
+        <img src={Logo} />
+      
+        <form onSubmit={handleSubmit} className="mt-2 space-y-6">
           <div>
             <label
               htmlFor="email"
