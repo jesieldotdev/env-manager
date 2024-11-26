@@ -21,12 +21,15 @@ const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemov
         <div className="flex flex-row sm:flex-row justify-between items-start sm:items-center p-4">
             <div className="mb-2 sm:mb-0 overflow-auto scrolb">
                 <p className="font-light text-sm sm:text-base font-title text-[#282828]">
-                    {name}{" | "}
-                    {description && (
-                        <span className="text-gray-500 font-extralight font-mono ">({description})</span>
+                    {name}{" = "}
+                    {value && (
+                        <span className="text-gray-500 font-extralight font-mono text-sm ">{value}</span>
                     )}
                 </p>
-                <p className="text-s text-gray-500 font-mono">{value}</p>
+                {description && (
+                        <p className="text-sm text-gray-500 font-mono">{description}</p>
+                    )}
+                
             </div>
 
 <div className="flex">
