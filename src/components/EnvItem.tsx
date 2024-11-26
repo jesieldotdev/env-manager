@@ -5,7 +5,7 @@ interface EnvItemProps {
     name: string;
     value: string;
     description: string;
-    handleRemoveVariable: (id:string)=>void
+    handleRemoveVariable: (id: string) => void
 }
 
 const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemoveVariable, id }) => {
@@ -27,27 +27,27 @@ const EnvItem: React.FC<EnvItemProps> = ({ name, value, description, handleRemov
                     )}
                 </p>
                 {description && (
-                        <p className="text-sm text-gray-500 font-mono">{description}</p>
-                    )}
-                
+                    <p className="text-sm text-gray-500 font-mono">{description}</p>
+                )}
+
             </div>
 
-<div className="flex">
-            <button
-                onClick={()=>handleRemoveVariable(id)}
-                className="ml-2 mt-2 sm:mt-0 p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
-                title="Delete"
-            >
-                <Trash className="w-5 h-5" />
-            </button>
-            <button
-                onClick={handleCopy}
-                className="ml-2 mt-2 sm:mt-0 p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
-                title="Copy to clipboard"
-            >
-                <Copy className="w-5 h-5" />
-            </button>
-        </div>
+            <div className="flex">
+                <button
+                    onClick={() => handleRemoveVariable(id)}
+                    className="ml-2 mt-2 sm:mt-0 p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
+                    title="Delete"
+                >
+                    <Trash className="w-5 h-5" />
+                </button>
+                <button
+                    onClick={handleCopy}
+                    className="ml-2 mt-2 sm:mt-0 p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
+                    title="Copy to clipboard"
+                >
+                    <Copy className="w-5 h-5" />
+                </button>
+            </div>
         </div>
     );
 };
