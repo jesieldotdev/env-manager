@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { addVariable, fetchVariables, removeVariable } from '../config/supabaseClient';
+import { addVariable, fetchVariables, removeVariable, supabase } from '../config/supabaseClient';
 import EnvItem from '../components/EnvItem';
 import Modal from '../components/Modal';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
     const [variables, setVariables] = useState<EnvVariable[]>([]);
     const [isModalOpen, setModalOpen] = useState(false);
 
-    
+
 
     function openAddEnvModal() {
         setModalOpen(true)
@@ -45,10 +45,13 @@ const Home: React.FC = () => {
         }
     }
 
+
     const handleAddVariable = async (name: string, value: string, description: string) => {
         dispatch(startLoading());
         try {
-            await addVariable(name, value, description);
+            const { data: { user } } = await supabase.auth.getUser()
+            if(user)
+            await addVariable(name, value, description, user.id);
             const updatedVariables = await fetchVariables();
             setVariables(updatedVariables || []);
             setModalOpen(false);
@@ -58,6 +61,8 @@ const Home: React.FC = () => {
             dispatch(stopLoading());
         }
     };
+
+
 
     const handleRemoveVariable = async (id: string) => {
         dispatch(startLoading());
@@ -120,7 +125,7 @@ const Home: React.FC = () => {
                 onAdd={handleAddVariable}
             />
 
-            <SpeedDial openAddEnvModal={openAddEnvModal}/>
+            <SpeedDial openAddEnvModal={openAddEnvModal} />
         </div>
     );
 };

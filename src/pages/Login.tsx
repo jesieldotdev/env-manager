@@ -17,7 +17,7 @@ const Login: React.FC = () => {
     } catch (error) {
 
     }
-    // Aqui você pode integrar com o Supabase ou qualquer lógica de autenticação
+    
   };
 
   return (
