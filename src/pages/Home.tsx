@@ -35,9 +35,7 @@ const Home: React.FC = () => {
         try {
             const isLoggedIn = await isUserLoggedIn();
             if (isLoggedIn) {
-                console.log('Usuário está logado');
             } else {
-                console.log('Usuário não está logado');
                 navigate('/login');
             }
         } catch (error) {

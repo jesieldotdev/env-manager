@@ -2,29 +2,43 @@ import React, { useState } from 'react';
 import { signInWithEmail } from '../config/auth';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.svg'
+import { useDispatch } from 'react-redux';
+import { startLoading, stopLoading } from '../store/loadingReducer';
+
+interface ErrorProp {
+  code: string
+  message: string
+}
 
 const Login: React.FC = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate()
   const [email, setEmail] = useState('');
+  const [error, setError] = useState<ErrorProp | null>(null);
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
+    dispatch(startLoading());
     try {
       await signInWithEmail(email, password)
       navigate('/')
-    } catch (error) {
-
+    } catch (err) {
+      if (err && typeof err === 'object' && 'message' in err) {
+        setError(err as ErrorProp);
+      } else {
+        setError({ code: 'unknown', message: 'An unknown error occurred' });
+      }
     }
-    
+    dispatch(stopLoading());
+
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 font-title">
       <div className="w-full max-w-sm sm:max-w-md space-y-8 bg-[#f7f7f7] p-6 sm:p-8 rounded shadow-lg">
         <img src={Logo} />
-      
+
         <form onSubmit={handleSubmit} className="mt-2 space-y-6">
           <div>
             <label
@@ -59,6 +73,10 @@ const Login: React.FC = () => {
               placeholder="Enter your password"
               required
             />
+
+            {
+              error && error?.message ? <span className='text-red-400 text-xs mt-8'>{error?.message}</span> : null
+            }
           </div>
           <div>
             <button

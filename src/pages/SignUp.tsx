@@ -16,7 +16,6 @@ const SignUp: React.FC = () => {
       alert('Passwords do not match');
       return;
     }
-    console.log({ email, password });
     try {
       await signUpWithEmail(email, password)
       setIsModalOpen(true)
